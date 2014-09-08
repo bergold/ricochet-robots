@@ -1,0 +1,51 @@
+body {
+  background-color: #F8F8F8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  margin: 0;
+}
+
+#container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.flex-split {
+  display: flex;
+}
+.flex-main {
+  flex: 1;
+}
+.flex-side {
+  align-self: flex-start;
+  width: 96px;
+}
+
+input, textarea {
+  
+}
+button {
+  
+}
+.msg-name {
+  margin: 4px;
+  padding: 6px 0;
+  text-align: center;
+  color: #0066cc;
+}
+.msg-data {
+  margin: 4px;
+  border-left: 1px solid #ccc;
+  padding: 6px 12px;
+}
+pre {
+  margin: 0;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.log {
+  margin: 4px 0;
+  text-align: center;
+  color: #666;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RasendeRoboter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="header flex-split">
+      <input id="txt_url" class="flex-main" type="text" value="ws://127.0.0.1:8080/ws">
+      <button id="btn_connect" class="flex-side">Connect</button>
+    </div>
+    <div class="logger">
+      <div id="msg_input" class="message flex-split">
+        <textarea id="txt_msg" class="flex-main" placeholder="Type message..."></textarea>
+        <button id="btn_send" class="flex-side">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/dart" src="main.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>
