@@ -1,4 +1,4 @@
-name: RicochetRobots
+name: ricochet-robots
 version: 0.1.0
 description: An online implementation of the boardgame Ricochet Robots
 dependencies:
