@@ -7,8 +7,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:isolate';
 
-part 'socketmanager.dart';
-part 'gamemanager.dart';
+part 'socketmanager.part.dart';
+part 'gamemanager.part.dart';
 
 void main() {
   
