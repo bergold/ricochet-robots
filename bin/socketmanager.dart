@@ -15,15 +15,17 @@ class SocketManager {
    * Handles new websocket connections.
    */
   void handler(WebSocket ws) {
-    ws.map((string) => JSON.decode(string)).listen((json) {
-      try {
-        _processIncome(ws, json);
-      } on SocketException catch(ex) {
-        _processException(ws, ex);
-      }
-    }, onDone: () {
-      _processLost(ws);
-    });
+    runZoned(() {
+      ws.map((string) => JSON.decode(string)).listen((json) {
+        try {
+          _processIncome(ws, json);
+        } on SocketException catch(ex) {
+          _processException(ws, ex);
+        }
+      }, onDone: () {
+        _processLost(ws);
+      });
+    }, onError: (e, stackTrace) => print('Oh noes! $e $stackTrace'));
   }
   
   /**
