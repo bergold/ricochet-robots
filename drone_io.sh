@@ -2,7 +2,7 @@
 set -e
 
 status() {
-  echo "\[\e[36m\]> $*\[\e[m\]"
+  echo -e "\[\e[36m\]> $*\[\e[m\]"
 }
 
 indent() {
