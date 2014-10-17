@@ -1,6 +1,11 @@
-name: ricochet-robots
+name: ricochetrobots
 version: 0.1.0
 description: An online implementation of the boardgame Ricochet Robots
 dependencies:
   browser: any
+  path: any
+  shelf: any
+  shelf_route: any
+  shelf_static: any
+  shelf_web_socket: any
   uuid: any
