@@ -2,7 +2,7 @@
 set -e
 
 status() {
-  echo -e "\e[36m> $*\e[m"
+  echo -e "\e[36m  > $*\e[m"
 }
 
 indent() {
@@ -13,14 +13,14 @@ indent() {
   esac
 }
 
-status "get dependencies"
+status "Get dependencies"
 pub get | indent
 
-status "analyzing codebase with dartanalyzer"
+status "Analyzing codebase with dartanalyzer"
 dartanalyzer lib/*.dart | indent
 dartanalyzer bin/index.dart | indent
 dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
 
-status "start tests"
+status "Start tests"
 dart --checked test/all.dart | indent
