@@ -1,6 +1,11 @@
+library ricochet_robots_backend.gamemanager;
 
-part of ricochet_robots_backend;
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+import 'dart:isolate';
 
+import 'socketmanager.dart';
 
 const String ISOLATE_PATH = 'game.isolate.dart';
 
