@@ -4,6 +4,8 @@ import 'dart:async';
 
 class GameConnector {
   
+  static const String _isolatePath = 'game.isolate.dart';
+  
   /// This stream receives messages from websockets.
   StreamController _input = new StreamController();
   /// This stream is used to send messages back to the websocket.
