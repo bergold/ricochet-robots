@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
-import 'socketmanager.dart';
+import '../socketmanager.dart';
 
 void main() {
   

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:isolate';
 
-import 'socketmanager.dart';
+import '../socketmanager.dart';
 
 const String ISOLATE_PATH = 'game.isolate.dart';
 
