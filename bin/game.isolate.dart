@@ -1,5 +1,4 @@
-
-library ricochet_robots_gamethread;
+library ricochetrobots_backend.gameisolate;
 
 import 'dart:isolate';
 
