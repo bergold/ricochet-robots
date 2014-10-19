@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
-import '../gamemanager.dart';
+import 'gamemanager.dart';
 
 /**
  * Manages different sockets.
