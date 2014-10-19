@@ -1,4 +1,4 @@
-library ricochet_robots_backend;
+library ricochetrobots_backend;
 
 import 'dart:async';
 import 'dart:io';
@@ -9,7 +9,8 @@ import 'package:shelf_route/shelf_route.dart' as shelf_route;
 import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_web_socket/shelf_web_socket.dart' as shelf_ws;
 
-import 'socketmanager.dart';
+import 'socketconnector.dart';
+import 'gameconnector.dart';
 
 void main() {
   
@@ -17,6 +18,13 @@ void main() {
   var host = InternetAddress.ANY_IP_V4;
   var portEnv = Platform.environment['PORT'];
   var port = portEnv == null ? 5000: int.parse(portEnv);
+  
+  /// Define SocketConnector and GameConnector.
+  var socketConnector = new SocketConnector();
+  var gameConnector = new GameConnector();
+  
+  socketConnector.output.pipe(gameConnector.input);
+  gameConnector.output.pipe(socketConnector.input);
   
   /// Defines the path and handler to serve static.
   var webPath = path.join(path.dirname(Platform.script.toFilePath()), '..', 'build/web');
@@ -27,9 +35,8 @@ void main() {
   var wsPath = wsPathEnv == null ? '/ws' : wsPathEnv;
   
   /// Create a handler to handle new websockets.
-  var socketManager = new SocketManager();
   var wsHandler = shelf_ws.webSocketHandler((ws) {
-    socketManager.handler(ws);
+    socketConnector.handle(ws);
   });
   
   var router = shelf_route.router(fallbackHandler: webHandler);
