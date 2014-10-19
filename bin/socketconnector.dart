@@ -15,6 +15,14 @@ class SocketConnector {
   /// Send the events received on this Stream to the correct websocket.
   StreamController _input = new StreamController();
   
+  SocketConnector() {
+    
+    _input.stream.listen((data) {
+      // [Todo] Send this data to the correct websocket.
+    });
+    
+  }
+  
   /// Adds a new connection and assignes a new clientId. 
   void handle(WebSocket ws) {
     var uuid = new Uuid();
@@ -30,7 +38,7 @@ class SocketConnector {
   void _listen(WebSocket ws) {
     ws.transform(new JsonDecoder()).listen((data) {
       // [Todo] Got valid json filter requests that aren't processed by GameConnector like reconnect here.
-      _input.add(data);
+      _output.add(data);
     }, onError: (error, stacktrace) {
       // [Todo] Error received. Probably, invalid json.
       print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
