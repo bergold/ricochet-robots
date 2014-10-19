@@ -1,4 +1,4 @@
-library ricochet_robots_backend.socketmanager;
+library ricochetrobots_backend.socketmanager;
 
 import 'dart:io';
 import 'dart:async';

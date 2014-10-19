@@ -1,4 +1,4 @@
-library ricochet_robots_backend.gamemanager;
+library ricochetrobots_backend.gamemanager;
 
 import 'dart:async';
 import 'dart:io';
