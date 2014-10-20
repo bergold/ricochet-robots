@@ -27,7 +27,7 @@ void main() {
   gameConnector.output.pipe(socketConnector.input);
   
   /// Defines the path and handler to serve static.
-  var webPath = path.join(path.dirname(Platform.script.toFilePath()), '..', 'build/web');
+  var webPath = path.normalize(path.join(path.dirname(Platform.script.toFilePath()), '..', 'build', 'web'));
   var webHandler = shelf_static.createStaticHandler(webPath, defaultDocument: 'index.html');
 
   /// Get the path to bind the ws server to.
