@@ -35,6 +35,7 @@ void main() {
   var wsPath = wsPathEnv == null ? '/ws' : wsPathEnv;
   
   /// Create a handler to handle new websockets.
+  print("Creating WebSocket listener on $wsPath");
   var wsHandler = shelf_ws.webSocketHandler((ws) {
     socketConnector.handle(ws);
   });
