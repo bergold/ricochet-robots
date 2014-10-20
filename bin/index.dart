@@ -45,7 +45,7 @@ void main() {
   runZoned(() {
     
     shelf_io.serve(router.handler, host, port).then((_) {
-      print('Server is listening on $host:$port');
+      print('Server is listening on ${host.address}:$port');
     });
     
   }, onError: (e, StackTrace stacktrace) => print("Error $e: $stacktrace"));
