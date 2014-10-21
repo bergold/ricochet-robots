@@ -30,7 +30,7 @@ class GameBridge {
   final SendPort _input;
   final ReceivePort _output;
   
-  factory GameBridge() {
+  static Future create() {
     var spawned = new Completer();
     var sendPort;
     var receivePort = new ReceivePort();
@@ -48,6 +48,10 @@ class GameBridge {
     _output.listen((data) {
       // [Todo] Got data from isolate.
     });
+  }
+  
+  void send(msg) {
+    
   }
   
 }
