@@ -2,6 +2,7 @@ library ricochetrobots.messages;
 
 class Message {
   
+  final String type = 'default';
   final String clientId;
   Map _props;
   
@@ -14,7 +15,7 @@ class Message {
   Map toJson() {
     var json = {
       'clientId': clientId,
-      'type': 'default'
+      'type': type
     };
     json.addAll(_props);
     return json;
@@ -32,5 +33,23 @@ class Message {
       super.noSuchMethod(invocation);
     }
   }
+  
+}
+
+class ReconnectRequestMessage extends Message {
+  
+  @override
+  final String type = 'reconnectRequest';
+  
+  ReconnectRequestMessage(clientId) : super(clientId);
+  
+}
+
+class ConnectResponseMessage extends Message {
+  
+  @override
+  final String type = 'reconnectRequest';
+  
+  ConnectResponseMessage(clientId) : super(clientId);
   
 }

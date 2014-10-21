@@ -1,7 +1,13 @@
+library ricochetrobots.test;
 
-import 'dart:io';
+import 'package:unittest/compact_vm_config.dart';
+
+import 'messages_test.dart' as messages;
 
 void main() {
-  print('All tests passed!');
-  exitCode = 0;
+  
+  useCompactVMConfiguration();
+  
+  messages.main();
+  
 }
