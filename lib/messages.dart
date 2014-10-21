@@ -11,10 +11,13 @@ class Message {
       this.clientId = json['clientId'],
       this._props = new Map.from(json)..remove('clientId');
   
-  Object toJson() {
-    return {
-      'clientId': clientId
+  Map toJson() {
+    var json = {
+      'clientId': clientId,
+      'type': 'default'
     };
+    json.addAll(_props);
+    return json;
   }
   
   @override
