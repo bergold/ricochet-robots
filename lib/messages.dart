@@ -4,7 +4,7 @@ class Message {
   
   final String type = 'default';
   final String clientId;
-  Map _props;
+  Map _props = new Map();
   
   Message(this.clientId);
   
