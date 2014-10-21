@@ -1,6 +1,5 @@
 library ricochetrobots_backend.socketconnector;
 
-import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
