@@ -15,26 +15,49 @@ void main() {
 void group_message() {
   group('Message', () {
     var msg;
-    setUp(() {
-      msg = new Message('client-id');
-    });
     
-    test('clientId-Getter', () {
-      expect('client-id', msg.clientId);
-    });
-    
-    group('_props-Accessors', () {
-      
+    group('default constructor', () {
       setUp(() {
-        msg.propOne = 5;
-        msg.propTwo = 'propTwoVal';
+        msg = new Message('client-id');
       });
       
-      test('getter', () {
-        expect(5, msg.propOne);
-        expect('propTwoVal', msg.propTwo);
+      test('clientId-Getter', () {
+        expect(msg.clientId, equals('client-id'));
       });
       
+      test('type-Getter', () {
+        expect(msg.type, equals('default'));
+      });
+      
+      group('_props-Accessors', () {
+        setUp(() {
+          msg.propOne = 5;
+          msg.propTwo = 'propTwoVal';
+        });
+        
+        test('getter', () {
+          expect(msg.propOne, equals(5));
+          expect(msg.propTwo, equals('propTwoVal'));
+        });
+      });
+    });
+    
+    group('fromJson constructor', () {
+      setUp(() {
+        msg = new Message.fromJson({
+          'clientId': 'client-id',
+          'propFoo': 'foo',
+          'propBar': 123
+        });
+      });
+      
+      test('clientId-Getter', () {
+        expect(msg.clientId, equals('client-id'));
+      });
+      
+      test('type-Getter', () {
+        expect(msg.type, equals('default'));
+      });
     });
     
   });
