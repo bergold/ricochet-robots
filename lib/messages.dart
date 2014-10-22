@@ -1,10 +1,12 @@
 library ricochetrobots.messages;
 
+import 'dart:mirrors';
+
 class Message {
   
   final String type = 'default';
   final String clientId;
-  Map _props = new Map();
+  Map _props = new Map<String, Object>();
   
   Message(this.clientId);
   
@@ -23,15 +25,21 @@ class Message {
   
   @override
   noSuchMethod(Invocation invocation) {
-    if (invocation.isAccessor && _props.containsKey(invocation.memberName)) {
-      if (invocation.isSetter) {
-        _props[invocation.memberName] = invocation.positionalArguments.first;
-      } else {
-        return _props[invocation.memberName];
+    if (invocation.isAccessor) {
+      var prop = MirrorSystem.getName(invocation.memberName);
+      if (invocation.isGetter) {
+        if (_props.containsKey(prop)) {
+          return _props[prop];
+        }
+        return super.noSuchMethod(invocation);
       }
-    } else {
-      super.noSuchMethod(invocation);
+      if (invocation.isSetter) {
+        prop = prop.substring(0, prop.length - 1);
+        _props[prop] = invocation.positionalArguments.first;
+        return null;
+      }
     }
+    return super.noSuchMethod(invocation);
   }
   
 }
