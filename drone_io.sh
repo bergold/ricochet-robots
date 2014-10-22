@@ -24,4 +24,4 @@ dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
 
 status "Start tests"
-dart --checked test/all.dart | indent
+dart --checked test/all.dart
