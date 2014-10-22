@@ -51,4 +51,16 @@ void main() {
     
   }, onError: (e, StackTrace stacktrace) => print("Error $e: $stacktrace"));
   
+  /// Friendly close on SIGTERM
+  runZoned(() {
+    ProcessSignal.SIGTERM.watch().listen((_) {
+      print('Stoping server');
+      exit(0);
+    });
+  }, onError: (e) {
+    if (e is SignalException) {
+      print('SIGTERM is not supported on this platform');
+    }
+  });
+  
 }
