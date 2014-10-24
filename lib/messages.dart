@@ -24,7 +24,7 @@ class Message {
       case 'reconnectRequest':
         return new ReconnectRequestMessage(clientId, props);
       case 'reconnectResponse':
-        break;
+        return new ReconnectResponseMessage(clientId, props);
       default:
         return new Message(clientId, props);
     }
@@ -61,6 +61,15 @@ class Message {
   
 }
 
+class ConnectResponseMessage extends Message {
+  
+  @override
+  final String type = 'connectResponse';
+  
+  ConnectResponseMessage(clientId, [props]) : super(clientId, props);
+  
+}
+
 class ReconnectRequestMessage extends Message {
   
   @override
@@ -70,11 +79,11 @@ class ReconnectRequestMessage extends Message {
   
 }
 
-class ConnectResponseMessage extends Message {
+class ReconnectResponseMessage extends Message {
   
   @override
-  final String type = 'connectResponse';
+  final String type = 'reconnectRequest';
   
-  ConnectResponseMessage(clientId, [props]) : super(clientId, props);
+  ReconnectResponseMessage(clientId, [props]) : super(clientId, props);
   
 }
