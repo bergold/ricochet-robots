@@ -49,7 +49,7 @@ void main() {
       print('Server is listening on ${host.address}:$port');
     });
     
-  }, onError: (e, StackTrace stacktrace) => print("Error $e: $stacktrace"));
+  }, onError: (e, StackTrace stacktrace) => print("Error $e\n$stacktrace"));
   
   // Friendly close on SIGTERM
   runZoned(() {
