@@ -8,11 +8,25 @@ class Message {
   final String clientId;
   Map _props = new Map<String, Object>();
   
-  Message(this.clientId);
+  Message(this.clientId, [this._props]);
   
-  Message.fromJson(Map json) :
-      this.clientId = json['clientId'],
-      this._props = new Map.from(json)..remove('clientId');
+  factory Message.fromJson(Map json) {
+      var clientId = json['clientId'];
+      var type = json['type'];
+      type = type == null ? 'default' : type;
+      var props = new Map.from(json)..remove('clientId')..remove('type');
+      
+      switch (type) {
+        case 'connectResponse':
+          return new ConnectResponseMessage(clientId, props);
+        case 'reconnectRequest':
+          return new ReconnectRequestMessage(clientId, props);
+        case 'reconnectResponse':
+          break;
+        default:
+          return new Message(clientId, props);
+      }
+  }
   
   Map toJson() {
     var json = {
@@ -49,15 +63,15 @@ class ReconnectRequestMessage extends Message {
   @override
   final String type = 'reconnectRequest';
   
-  ReconnectRequestMessage(clientId) : super(clientId);
+  ReconnectRequestMessage(clientId, [props]) : super(clientId, props);
   
 }
 
 class ConnectResponseMessage extends Message {
   
   @override
-  final String type = 'reconnectRequest';
+  final String type = 'connectResponse';
   
-  ConnectResponseMessage(clientId) : super(clientId);
+  ConnectResponseMessage(clientId, [props]) : super(clientId, props);
   
 }
