@@ -14,27 +14,27 @@ import 'gameconnector.dart';
 
 void main() {
   
-  /// Get host and port to bind to.
+  // Get host and port to bind to.
   var host = InternetAddress.ANY_IP_V4;
   var portEnv = Platform.environment['PORT'];
   var port = portEnv == null ? 5000: int.parse(portEnv);
   
-  /// Define SocketConnector and GameConnector.
+  // Define SocketConnector and GameConnector.
   var socketConnector = new SocketConnector();
   var gameConnector = new GameConnector();
   
   socketConnector.output.pipe(gameConnector.input);
   gameConnector.output.pipe(socketConnector.input);
   
-  /// Defines the path and handler to serve static.
+  // Defines the path and handler to serve static.
   var webPath = path.normalize(path.join(path.dirname(Platform.script.toFilePath()), '..', 'build', 'web'));
   var webHandler = shelf_static.createStaticHandler(webPath, defaultDocument: 'index.html');
 
-  /// Get the path to bind the ws server to.
+  // Get the path to bind the ws server to.
   var wsPathEnv = Platform.environment['WS_PATH'];
   var wsPath = wsPathEnv == null ? '/ws' : wsPathEnv;
   
-  /// Create a handler to handle new websockets.
+  // Create a handler to handle new websockets.
   print("Creating WebSocket listener on $wsPath");
   var wsHandler = shelf_ws.webSocketHandler((ws) {
     socketConnector.handle(ws);
@@ -51,7 +51,7 @@ void main() {
     
   }, onError: (e, StackTrace stacktrace) => print("Error $e: $stacktrace"));
   
-  /// Friendly close on SIGTERM
+  // Friendly close on SIGTERM
   runZoned(() {
     ProcessSignal.SIGTERM.watch().listen((_) {
       print('Stoping server');
