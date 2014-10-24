@@ -40,8 +40,12 @@ class SocketConnector {
       // [Todo] Got valid json filter requests that aren't processed by GameConnector like reconnect here.
       _output.add(data);
     }, onError: (error, stacktrace) {
-      // [Todo] Error received. Probably, invalid json.
-      print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
+      if (error is FormatException) {
+        // [Todo] Got invalid json. Report back to client.
+        print('Json parsing error in \'${error.source}\': ${error.message}');
+      } else {
+        print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
+      }
     }, onDone: () {
       // [Todo] Connection closed.
       print("Connection closed");
