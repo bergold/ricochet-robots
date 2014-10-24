@@ -60,15 +60,15 @@ void group_message() {
         });
       });
       
-      test('it should be the default type', () {
+      test('should be the default type', () {
         expect(msg is Message, equals(true));
       });
       
-      test('it should return the type used in json', () {
+      test('should return the type used in json', () {
         expect(msg.type, equals('default'));
       });
       
-      test('it should return the clientId that is declared in the json', () {
+      test('should return the clientId that is declared in the json', () {
         expect(msg.clientId, equals('my-client-id'));
       });
     });
@@ -83,11 +83,11 @@ void group_message() {
         });
       });
       
-      test('it should be an instance of ConnectResponseMessage', () {
+      test('should be an instance of ConnectResponseMessage', () {
         expect(msg is ConnectResponseMessage, equals(true));
       });
       
-      test('it should return the type used in json', () {
+      test('should return the type used in json', () {
         expect(msg.type, equals('connectResponse'));
       });
       
