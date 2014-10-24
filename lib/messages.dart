@@ -3,6 +3,7 @@ library ricochetrobots.messages;
 import 'dart:convert';
 import 'dart:mirrors';
 
+@proxy
 class Message {
   
   final String type = 'default';
@@ -16,6 +17,7 @@ class Message {
   factory Message.fromJson(json, { bool asString: false }) {
     if (asString) json = JSON.decode(json);
     var clientId = json['clientId'];
+    if (clientId == null) throw new ArgumentError('The field clientId is required.');
     var type = json['type'];
     type = type == null ? 'default' : type;
     var props = new Map.from(json)..remove('clientId')..remove('type');

@@ -16,9 +16,7 @@ class SocketConnector {
   
   SocketConnector() {
     
-    _input.stream.listen((data) {
-      // [Todo] Send this data to the correct websocket.
-    });
+    _input.stream.listen((msg) => send(msg));
     
   }
   
@@ -36,13 +34,22 @@ class SocketConnector {
   }
   
   void _listen(ws) {
-    ws.map((string) => new Message.fromJson(string, asString: true)).listen((data) {
-      // [Todo] Got valid json filter requests that aren't processed by GameConnector like reconnect here.
-      _output.add(data);
+    ws.map((string) => new Message.fromJson(string, asString: true)).listen((msg) {
+      
+      if (msg is ReconnectRequestMessage) {
+        // [Todo] Handle reconect.
+        throw new UnimplementedError('Reconnect is not yet implemented.');
+      } else {
+        _output.add(msg);
+      }
+      
     }, onError: (error, stacktrace) {
       if (error is FormatException) {
         // [Todo] Got invalid json. Report back to client.
         print('Json parsing error in \'${error.source}\': ${error.message}');
+      } else if (error is ArgumentError) {
+        // [Todo] Got invalid arguments in json (missing fields). Report back to client.
+        print('ArgumentError: ${error.message}');
       } else {
         print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
       }
