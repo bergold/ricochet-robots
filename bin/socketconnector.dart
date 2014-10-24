@@ -1,9 +1,9 @@
 library ricochetrobots_backend.socketconnector;
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:uuid/uuid.dart';
+import 'package:ricochetrobots/messages.dart';
 
 class SocketConnector {
   
@@ -36,7 +36,7 @@ class SocketConnector {
   }
   
   void _listen(ws) {
-    ws.map((string) => JSON.decode(string)).listen((data) {
+    ws.map((string) => new Message.fromJson(string, asString: true)).listen((data) {
       // [Todo] Got valid json filter requests that aren't processed by GameConnector like reconnect here.
       _output.add(data);
     }, onError: (error, stacktrace) {
