@@ -48,8 +48,16 @@ class SocketConnector {
     });
   }
   
-  void send(String clientId, Object msg) {
-    
+  /// This function parses the [msg] into Json
+  /// and sends it to the WebSocket that is connected to the clientId named in the [Message].
+  /// 
+  /// It returns false the connection could not be found or if the WebSocket is not opened
+  /// otherwise it returns true.
+  send(Message msg) {
+    var ws = _connections[msg.clientId];
+    if (ws == null || ws.closeCode == null) return false;
+    ws.add(msg.toJson(asString: true));
+    return true;
   }
   
   StreamConsumer get input => _input;
