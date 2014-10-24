@@ -7,9 +7,11 @@ class Message {
   
   final String type = 'default';
   final String clientId;
-  Map _props = new Map<String, Object>();
+  Map _props;
   
-  Message(this.clientId, [this._props]);
+  Message(this.clientId, [this._props]) {
+    if (_props == null) _props = new Map<String, Object>();
+  }
   
   factory Message.fromJson(json, { bool asString: false }) {
     if (asString) json = JSON.decode(json);
