@@ -1,5 +1,6 @@
 library ricochetrobots.messages;
 
+import 'dart:convert';
 import 'dart:mirrors';
 
 class Message {
@@ -10,30 +11,32 @@ class Message {
   
   Message(this.clientId, [this._props]);
   
-  factory Message.fromJson(Map json) {
-      var clientId = json['clientId'];
-      var type = json['type'];
-      type = type == null ? 'default' : type;
-      var props = new Map.from(json)..remove('clientId')..remove('type');
-      
-      switch (type) {
-        case 'connectResponse':
-          return new ConnectResponseMessage(clientId, props);
-        case 'reconnectRequest':
-          return new ReconnectRequestMessage(clientId, props);
-        case 'reconnectResponse':
-          break;
-        default:
-          return new Message(clientId, props);
-      }
+  factory Message.fromJson(json, { bool asString: false }) {
+    if (asString) json = JSON.decode(json);
+    var clientId = json['clientId'];
+    var type = json['type'];
+    type = type == null ? 'default' : type;
+    var props = new Map.from(json)..remove('clientId')..remove('type');
+    
+    switch (type) {
+      case 'connectResponse':
+        return new ConnectResponseMessage(clientId, props);
+      case 'reconnectRequest':
+        return new ReconnectRequestMessage(clientId, props);
+      case 'reconnectResponse':
+        break;
+      default:
+        return new Message(clientId, props);
+    }
   }
   
-  Map toJson() {
+  toJson({ bool asString: false }) {
     var json = {
       'clientId': clientId,
       'type': type
     };
     json.addAll(_props);
+    if (asString) return JSON.encode(json);
     return json;
   }
   
