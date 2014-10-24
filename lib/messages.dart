@@ -25,6 +25,12 @@ class Message {
         return new ReconnectRequestMessage(clientId, props);
       case 'reconnectResponse':
         return new ReconnectResponseMessage(clientId, props);
+      case 'disconnect':
+      case 'gameJoinRequest':
+      case 'gameJoinResponse':
+      case 'gameUserListUpdate':
+      case 'gameRoundUpdate':
+        throw new UnimplementedError();
       default:
         return new Message(clientId, props);
     }
