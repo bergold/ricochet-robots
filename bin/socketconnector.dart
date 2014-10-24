@@ -31,7 +31,7 @@ class SocketConnector {
     } while (_connections.containsKey(clientId));
     _connections[clientId] = ws;
     print('New client connected with $clientId');
-    // [Todo] Create msg with clientId and send back.
+    _connectSuccess(clientId);
     _listen(ws);
   }
   
@@ -52,6 +52,12 @@ class SocketConnector {
     });
   }
   
+  /// This function sends a [ConnectResponseMessage] to the clientId.
+  _connectSuccess(String clientId) {
+    var msg = new ConnectResponseMessage(clientId);
+    send(msg);
+  }
+  
   /// This function parses the [msg] into Json
   /// and sends it to the WebSocket that is connected to the clientId named in the [Message].
   /// 
@@ -59,7 +65,7 @@ class SocketConnector {
   /// otherwise it returns true.
   send(Message msg) {
     var ws = _connections[msg.clientId];
-    if (ws == null || ws.closeCode == null) return false;
+    if (ws == null || ws.closeCode != null) return false;
     ws.add(msg.toJson(asString: true));
     return true;
   }
