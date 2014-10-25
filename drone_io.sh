@@ -30,8 +30,14 @@ indent() {
   sed -u "$c"
 }
 
+
 echo ""
-echo "running bash v$BASH_VERSION"
+echo "$(uname)"
+echo "Bash Version: $BASH_VERSION"
+dart --version
+dart2js --version
+dartanalyzer --version
+pub --version
 
 status "Get dependencies"
 pub get | indent
