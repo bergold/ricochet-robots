@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+set -o pipefail
 
 status() {
   echo -e "\e[36m  > $*\e[m"
@@ -24,4 +25,4 @@ dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
 
 status "Start tests"
-dart --checked test/all.dart
+dart --checked test/all.dart | indent
