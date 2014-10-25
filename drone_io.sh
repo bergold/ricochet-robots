@@ -7,8 +7,7 @@ status() {
 }
 
 error() {
-  echo -e '\e[1;33m'Finished with error $?'\e[m\n'
-  exit $
+  echo -e "\n\e[33m  > "Finished with error $?"\e[m\n"
 }
 trap error ERR
 
@@ -22,8 +21,7 @@ pub get | indent
 
 status "Analyzing codebase with dartanalyzer"
 dartanalyzer lib/*.dart | indent
-dartanalyzer bin/index.dart | indent
-error
+dartanalyzer bin/index.dart
 dartanalyzer bin/game.isolate.dart | indent
 dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
