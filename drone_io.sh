@@ -17,10 +17,10 @@ status "Get dependencies"
 pub get | indent
 
 status "Analyzing codebase with dartanalyzer"
-dartanalyzer bin/index.dart | indent
-dartanalyzer bin/game.isolate.dart | indent
-dartanalyzer web/*.dart | indent
-dartanalyzer test/all.dart | indent
+dartanalyzer --package-warnings bin/index.dart | indent
+dartanalyzer --package-warnings bin/game.isolate.dart | indent
+dartanalyzer --package-warnings web/*.dart | indent
+dartanalyzer --package-warnings test/all.dart | indent
 
 status "Start tests"
 dart --checked test/all.dart
