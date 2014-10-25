@@ -3,8 +3,14 @@ set -o pipefail
 set -e
 
 status() {
-  echo -e "\e[36m  > $*\e[m"
+  echo -e "\n\e[36m  > $*\e[m"
 }
+
+error() {
+  echo -e '\e[1;33m'Finished with error $?'\e[m\n'
+  exit $
+}
+trap error ERR
 
 indent() {
   c='s/^/    /'
