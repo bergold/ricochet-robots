@@ -13,7 +13,15 @@ status() {
 }
 
 finish() {
-  echo -e "\n${cRed}  > Finished with $?${cReset}\n"
+  case $? in
+    0)
+      echo -e "\n${cGreen}Finished successfully \[0\]${cReset}\n";;
+    1)
+      echo -e "\n${cYellow}Finished with warning \[1\]${cReset}\n";;
+    *)
+      echo -e "\n${cGreen}Finished with error \[$?\]${cReset}\n";;
+  esac
+  exit $?
 }
 trap finish EXIT
 
