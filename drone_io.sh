@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-set -e
 set -o pipefail
+set -e
 
 status() {
   echo -e "\e[36m  > $*\e[m"
@@ -8,10 +8,7 @@ status() {
 
 indent() {
   c='s/^/    /'
-  case $(uname) in
-    Darwin) sed -l "$c";; # mac/bsd sed: -l buffers on line boundaries
-    *)      sed -u "$c";; # unix/gnu sed: -u unbuffered (arbitrary) chunks of data
-  esac
+  sed -u "$c"
 }
 
 status "Get dependencies"
@@ -26,3 +23,5 @@ dartanalyzer test/all.dart | indent
 
 status "Start tests"
 dart --checked test/all.dart | indent
+
+status "Finished with $?"
