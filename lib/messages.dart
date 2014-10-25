@@ -92,8 +92,18 @@ class ReconnectRequestMessage extends Message {
 class ReconnectResponseMessage extends Message {
   
   @override
-  final String type = 'reconnectRequest';
+  final String type = 'reconnectResponse';
   
   ReconnectResponseMessage(clientId, [props]) : super(clientId, props);
   
 }
+
+class GameCreateRequestMessage extends Message {
+  
+  @override
+  final String type = 'gameCreateRequest';
+  
+  GameCreateRequestMessage(clientId, [props]) : super(clientId, props);
+  
+}
+

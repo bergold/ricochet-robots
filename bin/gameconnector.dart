@@ -3,6 +3,8 @@ library ricochetrobots_backend.gameconnector;
 import 'dart:async';
 import 'dart:isolate';
 
+import 'package:ricochetrobots/messages.dart';
+
 const String _isolatePath = 'game.isolate.dart';
 
 class GameConnector {
@@ -14,8 +16,13 @@ class GameConnector {
   
   GameConnector() {
     
-    _input.stream.listen((data) {
+    _input.stream.listen((msg) {
       // [Todo] Send this data to the correct game or create a new if it's the cmd.
+      if (msg is GameCreateRequestMessage) {
+        
+      }
+      
+      
     });
     
   }
