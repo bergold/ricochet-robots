@@ -22,7 +22,7 @@ indent() {
   sed -u "$c"
 }
 
-echo "$BASH_VERSION" | indent
+echo "\nrunning bash v$BASH_VERSION"
 
 status "Get dependencies"
 pub get | indent
