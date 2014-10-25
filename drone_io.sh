@@ -2,11 +2,11 @@
 set -o pipefail
 set -e
 
-cRed='\e[0;31m'
-cGreen='\e[0;32m'
-cYellow='\e[0;33m'
-cCyan='\e[0;36m'
-cReset='\e[0m'
+cRed='\e[31m'
+cGreen='\e[32m'
+cYellow='\e[33m'
+cCyan='\e[36m'
+cReset='\e[m'
 
 status() {
   echo -e "\n${cCyan}  > $*${cReset}"
@@ -21,6 +21,8 @@ indent() {
   c='s/^/    /'
   sed -u "$c"
 }
+
+echo "$BASH_VERSION" | indent
 
 status "Get dependencies"
 pub get | indent
