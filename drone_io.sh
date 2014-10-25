@@ -21,13 +21,14 @@ pub get | indent
 
 status "Analyzing codebase with dartanalyzer"
 dartanalyzer lib/*.dart | indent
-dartanalyzer bin/index.dart
-error
+dartanalyzer bin/index.dart | indent
 dartanalyzer bin/game.isolate.dart | indent
 dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
 
 status "Start tests"
 dart --checked test/all.dart | indent
+
+( exit 1; )
 
 status "Finished with $?"
