@@ -15,11 +15,11 @@ status() {
 finish() {
   case $? in
     0)
-      echo -e "\n${cGreen}Finished successfully \[0\]${cReset}\n";;
+      echo -e "\n${cGreen}Finished successfully [0]${cReset}\n";;
     1)
-      echo -e "\n${cYellow}Finished with warning \[1\]${cReset}\n";;
+      echo -e "\n${cYellow}Finished with warning [1]${cReset}\n";;
     *)
-      echo -e "\n${cGreen}Finished with error \[$?\]${cReset}\n";;
+      echo -e "\n${cGreen}Finished with error [$?]${cReset}\n";;
   esac
   exit $?
 }
@@ -30,7 +30,8 @@ indent() {
   sed -u "$c"
 }
 
-echo "\nrunning bash v$BASH_VERSION"
+echo ""
+echo "running bash v$BASH_VERSION"
 
 status "Get dependencies"
 pub get | indent
