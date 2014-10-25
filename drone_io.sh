@@ -2,14 +2,19 @@
 set -o pipefail
 set -e
 
+CRED = "31"
+CGREEN = "32"
+CYELLOW = "33"
+CCYAN = "36"
+
 status() {
-  echo -e "\n\e[36m  > $*\e[m"
+  echo -e "\n\e[$CCYANm  > $*\e[m"
 }
 
-error() {
-  echo -e "\n\e[33m  > "Finished with error $?"\e[m\n"
+finish() {
+  echo -e "\n\e[$CREDm  > Finished with $?\e[m\n"
 }
-trap error ERR
+trap finish EXIT
 
 indent() {
   c='s/^/    /'
@@ -28,7 +33,3 @@ dartanalyzer test/all.dart | indent
 
 status "Start tests"
 dart --checked test/all.dart | indent
-
-( exit 1; )
-
-status "Finished with $?"
