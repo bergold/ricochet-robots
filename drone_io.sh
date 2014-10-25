@@ -2,17 +2,18 @@
 set -o pipefail
 set -e
 
-CRED='31'
-CGREEN='32'
-CYELLOW='33'
-CCYAN='36'
+cRed='\e[0;31m'
+cGreen='\e[0;32m'
+cYellow='\e[0;33m'
+cCyan='\e[0;36m'
+cReset='\e[0m'
 
 status() {
-  echo -e "\n\e[$CCYANm  > $*\e[m"
+  echo -e "\n${cCyan}  > $*${cReset}"
 }
 
 finish() {
-  echo -e "\n\e[$CREDm  > Finished with $?\e[m\n"
+  echo -e "\n${cRed}  > Finished with $?${cReset}\n"
 }
 trap finish EXIT
 
