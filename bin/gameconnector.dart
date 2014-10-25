@@ -27,6 +27,14 @@ class GameConnector {
     
   }
   
+  create() {
+    return ture;
+  }
+  
+  find(String gameId) {
+    
+  }
+  
   StreamConsumer get input => _input;
   Stream get output => _output.stream;
   
