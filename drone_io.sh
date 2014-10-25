@@ -2,10 +2,10 @@
 set -o pipefail
 set -e
 
-CRED = "31"
-CGREEN = "32"
-CYELLOW = "33"
-CCYAN = "36"
+CRED='31'
+CGREEN='32'
+CYELLOW='33'
+CCYAN='36'
 
 status() {
   echo -e "\n\e[$CCYANm  > $*\e[m"
