@@ -22,6 +22,7 @@ pub get | indent
 status "Analyzing codebase with dartanalyzer"
 dartanalyzer lib/*.dart | indent
 dartanalyzer bin/index.dart
+error
 dartanalyzer bin/game.isolate.dart | indent
 dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
