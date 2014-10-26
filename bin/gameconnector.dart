@@ -28,7 +28,7 @@ class GameConnector {
   }
   
   create() {
-    return ture;
+    
   }
   
   find(String gameId) {
