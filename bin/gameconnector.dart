@@ -57,6 +57,9 @@ class GameConnector {
     return GameBridge.create([msg.clientId]).then((game) {
       _games[gameId] = game;
       print('New game $gameId created by ${msg.clientId}');
+      game.output.listen((msg) {
+        _output.add(msg);
+      });
     });
   }
   
@@ -74,6 +77,9 @@ class GameBridge {
   final SendPort _input;
   final ReceivePort _output;
   
+  final StreamController _lineBack = new StreamController();
+  Stream get output => _lineBack.stream;
+  
   static Future create([List<String> args]) {
     args = args == null ? [] : args;
     var spawned = new Completer();
@@ -90,8 +96,8 @@ class GameBridge {
   }
   
   GameBridge.fromIsolate(this._output, this._input) {
-    _output.listen((data) {
-      // [Todo] Got data from isolate.
+    _output.listen((msg) {
+      _lineBack.add(msg);
     });
   }
   
