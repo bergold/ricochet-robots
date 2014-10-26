@@ -78,7 +78,7 @@ class GameConnector {
 class GameBridge {
   
   final SendPort _input;
-  final ReceivePort _output;
+  final Stream _output;
   
   final StreamController _lineBack = new StreamController();
   Stream get output => _lineBack.stream;
@@ -88,10 +88,13 @@ class GameBridge {
     var spawned = new Completer();
     var sendPort;
     var receivePort = new ReceivePort();
+    var receiver = new StreamController();
     receivePort.listen((msg) {
       if (sendPort == null) {
         sendPort = msg as SendPort;
-        spawned.complete(new GameBridge.fromIsolate(receivePort, sendPort));
+        spawned.complete(new GameBridge.fromIsolate(receiver.stream, sendPort));
+      } else {
+        receiver.add(msg);
       }
     });
     Isolate.spawnUri(Uri.parse(_isolatePath), args, receivePort.sendPort);
