@@ -1,5 +1,4 @@
-
-library ricochet_robots;
+library ricochetrobots;
 
 
 class Game {
