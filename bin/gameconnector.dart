@@ -33,13 +33,17 @@ class GameConnector {
     
     _input.stream.listen((msg) {
       if (msg is GameCreateRequestMessage) {
+        
         create(msg);
+        
+      } else {
+        
+        if (!msg.has('gameId')) throw new ArgumentError('The field gameId is required.');
+        var game = find(msg.gameId);
+        if (game == null) throw new ArgumentError('The game ${msg.gameId} does not exists.');
+        game.send(msg);
+        
       }
-      
-      if (!msg.has('gameId')) throw new ArgumentError('The field gameId is required.');
-      var game = find(msg.gameId);
-      if (game == null) throw new ArgumentError('The game ${msg.gameId} does not exists.');
-      game.send(msg);
     });
     
   }
