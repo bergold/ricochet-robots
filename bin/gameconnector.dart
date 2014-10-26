@@ -2,12 +2,27 @@ library ricochetrobots_backend.gameconnector;
 
 import 'dart:async';
 import 'dart:isolate';
+import 'dart:math';
 
 import 'package:ricochetrobots/messages.dart';
 
 const String _isolatePath = 'game.isolate.dart';
 
+/// Generates a random String with the [length] defaults to 5.
+String generateGameID([length = 5]) {
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVW'.split('');
+  var rnd = new Random();
+  var out = new StringBuffer();
+  for (var i = 0; i < length; i++) {
+    out.write(chars.elementAt(rnd.nextInt(chars.length)));
+  }
+  return out.toString();
+}
+
 class GameConnector {
+  
+  /// Holds all games with its gameId.
+  Map _games = new Map<String, GameBridge>();
   
   /// This stream receives messages from websockets.
   StreamController _input = new StreamController();
@@ -17,22 +32,24 @@ class GameConnector {
   GameConnector() {
     
     _input.stream.listen((msg) {
-      // [Todo] Send this data to the correct game or create a new if it's the cmd.
       if (msg is GameCreateRequestMessage) {
-        
+        create(msg);
       }
       
-      
+      if (!msg.has('gameId')) throw new ArgumentError('The field gameId is required.');
+      var game = find(msg.gameId);
+      if (game == null) throw new ArgumentError('The game ${msg.gameId} does not exists.');
+      game.send(msg);
     });
     
   }
   
-  create() {
+  create(GameCreateRequestMessage msg) {
     
   }
   
   find(String gameId) {
-    
+    return _games[gameId];
   }
   
   StreamConsumer get input => _input;

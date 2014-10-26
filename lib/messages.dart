@@ -50,6 +50,10 @@ class Message {
     return json;
   }
   
+  bool has(String prop) {
+    return _props.containsKey(prop);
+  }
+  
   @override
   noSuchMethod(Invocation invocation) {
     if (invocation.isAccessor) {
