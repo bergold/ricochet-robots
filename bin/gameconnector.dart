@@ -54,7 +54,7 @@ class GameConnector {
       gameId = generateGameId();
     } while(_games.containsKey(gameId));
     
-    return GameBridge.create().then((game) {
+    return GameBridge.create([msg.clientId]).then((game) {
       _games[gameId] = game;
     });
   }
@@ -73,7 +73,8 @@ class GameBridge {
   final SendPort _input;
   final ReceivePort _output;
   
-  static Future create() {
+  static Future create([List<String> args]) {
+    args = args == null ? [] : args;
     var spawned = new Completer();
     var sendPort;
     var receivePort = new ReceivePort();
@@ -83,7 +84,7 @@ class GameBridge {
         spawned.complete(new GameBridge.fromIsolate(receivePort, sendPort));
       }
     });
-    Isolate.spawnUri(Uri.parse(_isolatePath), [], receivePort.sendPort);
+    Isolate.spawnUri(Uri.parse(_isolatePath), args, receivePort.sendPort);
     return spawned.future;
   }
   
