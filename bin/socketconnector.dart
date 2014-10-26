@@ -30,10 +30,10 @@ class SocketConnector {
     _connections[clientId] = ws;
     print('New client connected with $clientId');
     _connectSuccess(clientId);
-    _listen(ws);
+    _listen(ws, clientId);
   }
   
-  void _listen(ws) {
+  void _listen(ws, clientId) {
     ws.map((string) => new Message.fromJson(string, asString: true)).listen((msg) {
       
       if (msg is ReconnectRequestMessage) {
@@ -45,10 +45,15 @@ class SocketConnector {
       
     }, onError: (error, stacktrace) {
       if (error is FormatException) {
-        // [Todo] Got invalid json. Report back to client.
-        print('Json parsing error in \'${error.source}\': ${error.message}');
+        var msgString = 'Json parsing error in \'${error.source}\': ${error.message}';
+        send(new FormatErrorMessage(clientId, {
+          'message': msgString
+        }));
+        print(msgString);
       } else if (error is ArgumentError) {
-        // [Todo] Got invalid arguments in json (missing fields). Report back to client.
+        send(new ArgumentErrorMessage(clientId, {
+          'message': error.message
+        }));
         print('ArgumentError: ${error.message}');
       } else {
         print('WebSocketStreamError [$error] with stacktrace: $stacktrace');

@@ -44,3 +44,25 @@ class GameCreateResponseMessage extends Message {
   GameCreateResponseMessage(clientId, [props]) : super(clientId, props);
   
 }
+
+class FormatErrorMessage extends Message {
+  
+  @override
+  final String type = 'formatError';
+  
+  FormatErrorMessage(clientId, [props]) : super(clientId, props);
+  
+}
+
+class ArgumentErrorMessage extends Message {
+  
+  @override
+  final String type = 'argumentError';
+  
+  ArgumentErrorMessage(clientId, [props]) : super(clientId, props);
+  
+}
+
+
+
+
