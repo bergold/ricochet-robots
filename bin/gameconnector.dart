@@ -56,6 +56,9 @@ class GameConnector {
     
     return GameBridge.create([msg.clientId]).then((game) {
       _games[gameId] = game;
+      _output.add(new GameCreateResponseMessage(msg.clientId, {
+        'gameId': gameId
+      }));
       print('New game $gameId created by ${msg.clientId}');
       game.output.listen((msg) {
         _output.add(msg);
