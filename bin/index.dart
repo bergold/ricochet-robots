@@ -14,6 +14,16 @@ import 'gameconnector.dart';
 
 void main() {
   
+  // Catches all errors.
+  runZoned(run, onError: (e, stacktrace) {
+    print('Uncaught Error: $e');
+    print(stacktrace);
+  });
+  
+}
+
+void run() {
+  
   // Get host and port to bind to.
   var host = InternetAddress.ANY_IP_V4;
   var portEnv = Platform.environment['PORT'];
@@ -43,13 +53,9 @@ void main() {
   var router = shelf_route.router(fallbackHandler: webHandler);
   router.get(wsPath, wsHandler);
   
-  runZoned(() {
-    
-    shelf_io.serve(router.handler, host, port).then((_) {
-      print('Server is listening on ${host.address}:$port');
-    });
-    
-  }, onError: (e, StackTrace stacktrace) => print("Error $e\n$stacktrace"));
+  shelf_io.serve(router.handler, host, port).then((_) {
+    print('Server is listening on ${host.address}:$port');
+  });
   
   // Friendly close on SIGTERM
   runZoned(() {
