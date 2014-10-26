@@ -56,6 +56,7 @@ class GameConnector {
     
     return GameBridge.create([msg.clientId]).then((game) {
       _games[gameId] = game;
+      print('New game $gameId created by ${msg.clientId}');
     });
   }
   
@@ -95,7 +96,7 @@ class GameBridge {
   }
   
   void send(msg) {
-    
+    _input.send(msg);
   }
   
 }
