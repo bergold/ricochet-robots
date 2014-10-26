@@ -42,12 +42,12 @@ pub --version
 status "Get dependencies"
 pub get | indent
 
-status "Analyzing codebase with dartanalyzer"
+status "Analyze with dartanalyzer"
 dartanalyzer lib/*.dart | indent
 dartanalyzer bin/index.dart | indent
 dartanalyzer bin/game.isolate.dart | indent
 dartanalyzer web/*.dart | indent
 dartanalyzer test/all.dart | indent
 
-status "Start tests"
+status "Run tests"
 dart --checked test/all.dart | indent
