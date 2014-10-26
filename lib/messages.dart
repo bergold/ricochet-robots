@@ -31,6 +31,14 @@ class Message {
         return new ReconnectRequestMessage(clientId, props);
       case 'reconnectResponse':
         return new ReconnectResponseMessage(clientId, props);
+      case 'gameCreateRequest':
+        return new GameCreateRequestMessage(clientId, props);
+      case 'gameCreateResponse':
+        return new GameCreateResponseMessage(clientId, props);
+      case 'formatError':
+        return new FormatErrorMessage(clientId, props);
+      case 'argumentError':
+        return new ArgumentErrorMessage(clientId, props);
       case 'disconnect':
       case 'gameJoinRequest':
       case 'gameJoinResponse':
