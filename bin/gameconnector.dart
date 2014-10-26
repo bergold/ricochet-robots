@@ -9,7 +9,7 @@ import 'package:ricochetrobots/messages.dart';
 const String _isolatePath = 'game.isolate.dart';
 
 /// Generates a random String with the [length] defaults to 5.
-String generateGameID([length = 5]) {
+String generateGameId([length = 5]) {
   var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVW'.split('');
   var rnd = new Random();
   var out = new StringBuffer();
@@ -49,7 +49,14 @@ class GameConnector {
   }
   
   create(GameCreateRequestMessage msg) {
+    var gameId;
+    do {
+      gameId = generateGameId();
+    } while(_games.containsKey(gameId));
     
+    return GameBridge.create().then((game) {
+      _games[gameId] = game;
+    });
   }
   
   find(String gameId) {
