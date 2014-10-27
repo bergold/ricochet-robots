@@ -1,65 +1,58 @@
 part of ricochetrobots.messages;
 
-class ConnectResponseMessage extends Message {
+@MessageType('connectResponse')
+class ConnectResponseMessage extends MessageBase with MessageMixin {
   
-  @override
-  final String type = 'connectResponse';
-  
-  ConnectResponseMessage(clientId, [props]) : super(clientId, props);
-  
-}
-
-class ReconnectRequestMessage extends Message {
-  
-  @override
-  final String type = 'reconnectRequest';
-  
-  ReconnectRequestMessage(clientId, [props]) : super(clientId, props);
+  ConnectResponseMessage(clientId, [props]) : super(props);
+  ConnectResponseMessage.raw(props) : super(props);
   
 }
 
-class ReconnectResponseMessage extends Message {
+@MessageType('reconnectRequest')
+class ReconnectRequestMessage extends MessageBase with MessageMixin {
   
-  @override
-  final String type = 'reconnectResponse';
-  
-  ReconnectResponseMessage(clientId, [props]) : super(clientId, props);
-  
-}
-
-class GameCreateRequestMessage extends Message {
-  
-  @override
-  final String type = 'gameCreateRequest';
-  
-  GameCreateRequestMessage(clientId, [props]) : super(clientId, props);
+  ReconnectRequestMessage(clientId, [props]) : super(props);
+  ReconnectRequestMessage.raw(props) : super(props);
   
 }
 
-class GameCreateResponseMessage extends Message {
+@MessageType('reconnectResponse')
+class ReconnectResponseMessage extends MessageBase with MessageMixin {
   
-  @override
-  final String type = 'gameCreateResponse';
-  
-  GameCreateResponseMessage(clientId, [props]) : super(clientId, props);
-  
-}
-
-class FormatErrorMessage extends Message {
-  
-  @override
-  final String type = 'formatError';
-  
-  FormatErrorMessage(clientId, [props]) : super(clientId, props);
+  ReconnectResponseMessage(clientId, [props]) : super(props);
+  ReconnectResponseMessage.raw(props) : super(props);
   
 }
 
-class ArgumentErrorMessage extends Message {
+@MessageType('gameCreateRequest')
+class GameCreateRequestMessage extends MessageBase with MessageMixin {
   
-  @override
-  final String type = 'argumentError';
+  GameCreateRequestMessage(clientId, [props]) : super(props);
+  GameCreateRequestMessage.raw(props) : super(props);
   
-  ArgumentErrorMessage(clientId, [props]) : super(clientId, props);
+}
+
+@MessageType('gameCreateResponse')
+class GameCreateResponseMessage extends MessageBase with MessageMixin {
+  
+  GameCreateResponseMessage(clientId, [props]) : super(props);
+  GameCreateResponseMessage.raw(props) : super(props);
+  
+}
+
+@MessageType('formatError')
+class FormatErrorMessage extends MessageBase with MessageMixin {
+  
+  FormatErrorMessage(clientId, [props]) : super(props);
+  FormatErrorMessage.raw(props) : super(props);
+  
+}
+
+@MessageType('argumentError')
+class ArgumentErrorMessage extends MessageBase with MessageMixin {
+  
+  ArgumentErrorMessage(clientId, [props]) : super(props);
+  ArgumentErrorMessage.raw(props) : super(props);
   
 }
 

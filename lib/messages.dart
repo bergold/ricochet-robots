@@ -1,50 +1,50 @@
 library ricochetrobots.messages;
 
-@MirrorsUsed(metaTargets: MessageType)
+@MirrorsUsed(metaTargets: MessageType, symbols: '*')
 import 'dart:mirrors';
 import 'dart:convert';
 
 part 'src/messages_default.dart';
 
+/// This class is used as a metadata for subtypes of Message
+/// to define the type as String used in Json out- and input.
 class MessageType {
   final String type;
   const MessageType(this.type);
 }
 
 @proxy
-class Message {
+abstract class MessageBase {
   
-  final String type = 'default';
-  final String clientId;
   Map _props;
   
-  Message(this.clientId, [this._props]) {
+  MessageBase(this._props) {
     if (_props == null) _props = new Map<String, Object>();
   }
   
-  factory Message.fromJson(json, { bool asString: false }) {
+  factory MessageBase.fromJson(json, { bool asString: false }) {
     if (asString) json = JSON.decode(json);
-    var clientId = json['clientId'];
-    if (clientId == null) throw new ArgumentError('The field clientId is required.');
+    
     var type = json['type'];
     type = type == null ? 'default' : type;
-    var props = new Map.from(json)..remove('clientId')..remove('type');
+    
+    var props = new Map.from(json)..remove('type');
     
     var subclassMirror = getClassToType(type);
     
     if (subclassMirror != null) {
-      return subclassMirror.newInstance(new Symbol(''), clientId, props).reflectee;
+      return subclassMirror.newInstance(new Symbol('raw'), [props]).reflectee;
     } else {
-      return new Message(clientId, props); 
+      throw new UnsupportedError('The message type $type could not be found.');
     }
   }
   
   static ClassMirror getClassToType(String type) {
     var ms = currentMirrorSystem();
-    var rootLib = ms.isolate.rootLibrary;
-    var matches = rootLib.declarations.values.where((d) =>
+    var thisLib = ms.findLibrary(#ricochetrobots.messages);
+    var matches = thisLib.declarations.values.where((d) =>
         d is ClassMirror &&
-        (d as ClassMirror).isSubclassOf(reflectClass(Message)) &&
+        (d as ClassMirror).isSubclassOf(reflectClass(MessageBase)) &&
         d.metadata.any((m) =>
             m.hasReflectee &&
             m.reflectee is MessageType &&
@@ -83,6 +83,31 @@ class Message {
       }
     }
     return super.noSuchMethod(invocation);
+  }
+  
+}
+
+class MessageMixin {
+  
+  String get type {
+    var classMirror = reflect(this).type;
+    var typeMirror = classMirror.metadata.singleWhere((m) =>
+        m.hasReflectee &&
+        m.reflectee is MessageType);
+    return (typeMirror.reflectee as MessageType).type;
+  }
+  
+}
+
+@MessageType('default')
+class Message extends MessageBase with MessageMixin {
+  
+  Message(clientId, [props]) : super(props) {
+    _props['clientId'] = clientId;
+  }
+  
+  Message.raw(props) : super(props) {
+    if (clientId == null) throw new ArgumentError('The field clientId is required.');
   }
   
 }

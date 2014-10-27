@@ -53,7 +53,7 @@ void group_message() {
     
     group('#fromJson constructor with no type', () {
       setUp(() {
-        msg = new Message.fromJson({
+        msg = new MessageBase.fromJson({
           'clientId': 'my-client-id',
           'propFoo': 'foo',
           'propBar': 123
@@ -75,7 +75,7 @@ void group_message() {
     
     group('#fromJson constructor with type', () {
       setUp(() {
-        msg = new Message.fromJson({
+        msg = new MessageBase.fromJson({
           'clientId': 'connect-client-id',
           'type': 'connectResponse',
           'propFoo': 'foo',
