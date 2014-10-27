@@ -28,6 +28,13 @@ void group_message() {
       test('should return the default type as string', () {
         expect(msg.type, equals('default'));
       });
+      
+      test('should return the set value', () {
+        msg.propFoo = 32.2343;
+        msg.propBar = 'hallo';
+        expect(msg.propFoo, equals(32.2343));
+        expect(msg.propBar, equals('hallo'));
+      });
     });
     
     group('#default constructor with props', () {
