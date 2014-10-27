@@ -34,7 +34,7 @@ class SocketConnector {
   }
   
   void _listen(ws, clientId) {
-    ws.map((string) => new Message.fromJson(string, asString: true)).listen((msg) {
+    ws.map((string) => new MessageBase.fromJson(string, asString: true)).listen((msg) {
       
       if (msg is ReconnectRequestMessage) {
         // [Todo] Handle reconect.
@@ -75,7 +75,7 @@ class SocketConnector {
   /// 
   /// It returns false the connection could not be found or if the WebSocket is not opened
   /// otherwise it returns true.
-  send(Message msg) {
+  send(MessageBase msg) {
     var ws = _connections[msg.clientId];
     if (ws == null || ws.closeCode != null) return false;
     ws.add(msg.toJson(asString: true));
