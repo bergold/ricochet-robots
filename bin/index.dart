@@ -60,7 +60,7 @@ void run() {
   // Friendly close on SIGTERM
   runZoned(() {
     ProcessSignal.SIGTERM.watch().listen((_) {
-      print('Stoping server');
+      print('Stopping server');
       exit(0);
     });
   }, onError: (e) {
