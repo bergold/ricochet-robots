@@ -4,7 +4,7 @@ library ricochetrobots.messages;
 import 'dart:mirrors';
 import 'dart:convert';
 
-part 'src/messages_default.dart';
+part 'src/messages_types.dart';
 
 /// This class is used as a metadata for subtypes of Message
 /// to define the type as String used in Json out- and input.
@@ -107,7 +107,7 @@ class Message extends MessageBase with MessageMixin {
   }
   
   Message.raw(props) : super(props) {
-    if (clientId == null) throw new ArgumentError('The field clientId is required.');
+    if (props['clientId'] == null) throw new ArgumentError('The field clientId is required.');
   }
   
 }
