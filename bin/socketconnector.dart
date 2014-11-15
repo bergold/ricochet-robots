@@ -52,7 +52,8 @@ class SocketConnector {
         _sendArgumentError(clientId, error);
         print('ArgumentError: ${error.message}');
       } else {
-        print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
+        print('WebSocketStreamError: [$error]');
+        print(stacktrace);
       }
     }, onDone: () {
       // [Todo] Connection closed.
