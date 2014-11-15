@@ -46,14 +46,10 @@ class SocketConnector {
     }, onError: (error, stacktrace) {
       if (error is FormatException) {
         var msgString = 'Json parsing error in \'${error.source}\': ${error.message}';
-        send(new FormatErrorMessage(clientId, {
-          'message': msgString
-        }));
+        _sendFormatException(clientId, msgString);
         print(msgString);
       } else if (error is ArgumentError) {
-        send(new ArgumentErrorMessage(clientId, {
-          'message': error.message
-        }));
+        _sendArgumentError(clientId, error);
         print('ArgumentError: ${error.message}');
       } else {
         print('WebSocketStreamError [$error] with stacktrace: $stacktrace');
@@ -68,6 +64,20 @@ class SocketConnector {
   _connectSuccess(String clientId) {
     var msg = new ConnectResponseMessage(clientId);
     send(msg);
+  }
+  
+  /// Sends a [FormatException] to the client.
+  _sendFormatException(String clientId, String msg) {
+    send(new FormatErrorMessage(clientId, {
+      'message': msg
+    }));
+  }
+  
+  /// Sends a [ArgumentError] to the client.
+  _sendArgumentError(String clientId, ArgumentError error) {
+    send(new ArgumentErrorMessage(clientId, {
+      'message': error.message
+    }));
   }
   
   /// This function parses the [msg] into Json
