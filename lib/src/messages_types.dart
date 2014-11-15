@@ -70,6 +70,17 @@ class ArgumentErrorMessage extends MessageBase with MessageMixin {
   
 }
 
+@MessageType('unsupportedError')
+class UnsupportedErrorMessage extends MessageBase with MessageMixin {
+  
+  UnsupportedErrorMessage(clientId, [props]) : super(props) {
+    _props['clientId'] = clientId;
+  }
+  UnsupportedErrorMessage.raw(props) : super(props);
+  
+}
+
+
 
 
 

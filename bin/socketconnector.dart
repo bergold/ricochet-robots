@@ -51,6 +51,9 @@ class SocketConnector {
       } else if (error is ArgumentError) {
         _sendArgumentError(clientId, error);
         print('ArgumentError: ${error.message}');
+      } else if (error is UnsupportedError) {
+        _sendUnsupportedError(clientId, error);
+        print('UnsupportedError: $error');
       } else {
         print('WebSocketStreamError: [$error]');
         print(stacktrace);
@@ -78,6 +81,13 @@ class SocketConnector {
   _sendArgumentError(String clientId, ArgumentError error) {
     send(new ArgumentErrorMessage(clientId, {
       'message': error.message
+    }));
+  }
+
+  /// Sends a [UnsupportedError] to the client.
+  _sendUnsupportedError(String clientId, UnsupportedError error) {
+    send(new UnsupportedErrorMessage(clientId, {
+      'message': error.toString()
     }));
   }
   
