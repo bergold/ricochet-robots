@@ -10,5 +10,6 @@ void main(List<String> args, SendPort sendPort) {
   
   receivePort.listen((msg) {
     // [Todo] got msg
+    print("got msg");
   });
 }
