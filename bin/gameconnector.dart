@@ -5,6 +5,7 @@ import 'dart:isolate';
 import 'dart:math';
 
 import 'package:ricochetrobots/messages.dart';
+import 'package:ricochetrobots/analytics.dart' as Analytics;
 
 const String _isolatePath = 'game.isolate.dart';
 
@@ -35,6 +36,7 @@ class GameConnector {
       if (msg is GameCreateRequestMessage) {
         
         create(msg);
+        Analytics.trigger('game.create');
         
       } else {
         

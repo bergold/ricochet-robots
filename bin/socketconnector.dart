@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:uuid/uuid.dart';
 import 'package:ricochetrobots/messages.dart';
+import 'package:ricochetrobots/analytics.dart' as Analytics;
 
 class SocketConnector {
   
@@ -61,6 +62,7 @@ class SocketConnector {
     }, onDone: () {
       // [Todo] Connection closed.
       print("Connection closed");
+      Analytics.trigger('connection.close');
     });
   }
   
@@ -68,6 +70,8 @@ class SocketConnector {
   _connectSuccess(String clientId) {
     var msg = new ConnectResponseMessage(clientId);
     send(msg);
+    
+    Analytics.trigger('connection.open');
   }
   
   /// Sends a [FormatException] to the client.
