@@ -2,6 +2,7 @@ library ricochetrobots_backend.gameisolate;
 
 import 'dart:isolate';
 
+import 'package:ricochetrobots/ricochetrobots.dart';
 import 'package:ricochetrobots/messages.dart';
 
 void main(List<String> args, SendPort sendPort) {
@@ -10,8 +11,14 @@ void main(List<String> args, SendPort sendPort) {
   
   var adminId = args[0];
   
+  var game = new Game(adminId);
+  
   receivePort.listen((MessageBase msg) {
-    // [Todo] got msg
-    print("got msg");
+    game.sendMsg(msg);
   });
+  
+  game.onmessage = (MessageBase msg) {
+    sendPort.send(msg);
+  };
+  
 }
