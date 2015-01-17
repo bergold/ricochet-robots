@@ -36,7 +36,7 @@ class GameConnector {
       if (msg is GameCreateRequestMessage) {
         
         create(msg);
-        Analytics.trigger('game.create');
+        Analytics.trigger(new Analytics.AnalyticsEvent('game.create', {}));
         
       } else {
         

@@ -62,7 +62,7 @@ class SocketConnector {
     }, onDone: () {
       // [Todo] Connection closed.
       print("Connection closed");
-      Analytics.trigger('connection.close');
+      Analytics.trigger(new Analytics.AnalyticsEvent('connection.close', {}));
     });
   }
   
@@ -71,7 +71,7 @@ class SocketConnector {
     var msg = new ConnectResponseMessage(clientId);
     send(msg);
     
-    Analytics.trigger('connection.open');
+    Analytics.trigger(new Analytics.AnalyticsEvent('connection.open', {}));
   }
   
   /// Sends a [FormatException] to the client.
